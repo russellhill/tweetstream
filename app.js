@@ -78,6 +78,7 @@ io.on('connection', function (socket) {
                 var x = new Date(tweet.created_at);
                 var formatted =  (x.getHours()) + ':' + (x.getMinutes()) + ':' + (x.getSeconds()) + ':' + (x.getMilliseconds());
                 var strData = {
+                    "filter": keyword,
                     "date": formatted,
                     "text": tweet.text,
                     "user": {

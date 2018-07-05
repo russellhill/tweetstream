@@ -78,8 +78,20 @@ socket.on('tweet', function (data) {
             totalItems = 0;
             reset();
         }
-        // createItem(data.text, false);
-        createLogo('/images/football.png', data.text);
+
+        var image = null;
+
+        if (data.filter === 'fifa') {
+            image = 'football';
+        } else if (data.filter === 'trump') {
+            image = 'trump';
+        }
+
+        if (image) {
+            createLogo('/images/' + image + '.png', data.text);
+        } else {
+            createItem(data.text, false);
+        }
         totalItems++;
     }
     updateData();
