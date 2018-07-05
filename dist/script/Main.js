@@ -4,7 +4,9 @@ var delta = [ 0, 0 ];
 var stage = [ window.screenX, window.screenY, window.innerWidth, window.innerHeight ];
 getBrowserDimensions();
 
-var themes = [ [ "#10222B", "#95AB63", "#BDD684", "#E2F0D6", "#F6FFE0" ],
+var themes = [ 
+		[ '#343A40', '#495057', '#017D87', '#C5197D', '#FFFFFF'],
+		[ "#10222B", "#95AB63", "#BDD684", "#E2F0D6", "#F6FFE0" ],
 		[ "#362C2A", "#732420", "#BF734C", "#FAD9A0", "#736859" ],
 		[ "#0D1114", "#102C2E", "#695F4C", "#EBBC5E", "#FFFBB8" ],
 		[ "#2E2F38", "#FFD63E", "#FFB54B", "#E88638", "#8A221C" ],
@@ -12,8 +14,8 @@ var themes = [ [ "#10222B", "#95AB63", "#BDD684", "#E2F0D6", "#F6FFE0" ],
 		[ "#343F40", "#736751", "#F2D7B6", "#BFAC95", "#8C3F3F" ],
 		[ "#000000", "#2D2B2A", "#561812", "#B81111", "#FFFFFF" ],
 		[ "#333B3A", "#B4BD51", "#543B38", "#61594D", "#B8925A" ] ];
-var theme;
 
+var theme = themes[0];
 var worldAABB, world, iterations = 1, timeStep = 1 / 20;
 
 var walls = [];
@@ -235,7 +237,7 @@ function createItem(message_text, with_extras) {
 	circle.restitution = 0.3;
 	b2body.AddShape(circle);
 	b2body.userData = {element: element};
-
+	
 	b2body.position.Set( Math.random() * stage[2], Math.random() * -200 );
 	b2body.linearVelocity.Set( Math.random() * 400 - 200, Math.random() * 400 - 200 );
 	bodies.push( world.CreateBody(b2body) );	
@@ -247,7 +249,7 @@ function createItem(message_text, with_extras) {
 	}
 }
 
-function createLogo(image_path) {
+function createLogo(image_path, message_text) {
 
 	var size = 250;
 
@@ -277,6 +279,20 @@ function createLogo(image_path) {
 	image.style.background = 'url(' + image_path + ') no-repeat';
 	element.appendChild(image);
 	
+	var text = document.createElement( 'div' );
+	text.onSelectStart = null;
+	text.innerHTML = '<span style="color:' + theme[3] + ';">' + message_text + '</span>';
+	text.style.color = theme[3];
+	text.style.position = 'absolute';
+	text.style.left = '0px';
+	text.style.top = '0px';
+	text.style.fontFamily = 'Georgia';
+	text.style.textAlign = 'center';
+	element.appendChild(text);
+
+	text.style.left = ((250 - text.clientWidth) / 2) +'px';
+	text.style.top = ((250 - text.clientHeight) / 2) +'px';	
+
 	var b2body = new b2BodyDef();
 
 	var circle = new b2CircleDef();
